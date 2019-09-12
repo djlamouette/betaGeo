@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
-    <app-header></app-header>
-    <transition name="slide" mode="out-in">
-      <router-view></router-view>
-    </transition>
-  </div>
+<div id="app">
+  <app-header></app-header>
+  <transition name="fade" mode="out-in">
+    <router-view></router-view>
+  </transition>
+</div>
 </template>
 
 <script>
@@ -19,36 +19,25 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    height: 100%;
+    padding-top: 56px;
+  }
 
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: 0.3s;
+  }
 
-.slide-enter {
-  opacity: 0;
-  transition: 1000ms;
-  transform: translateY(30px);
-}
-
-.slide-enter-active {
-  opacity: 1;
-  transition: 1000ms;
-  transform: translateY(0px);
-}
-
-.slide-leave {
-  opacity: 1;
-  transition: 1000ms;
-  transform: translateY(0px);
-}
-
-.slide-leave-active {
-  opacity: 0;
-  transition: 1000ms;
-  transform: translateY(30px);
-}
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: 0.3s
+  }
 </style>

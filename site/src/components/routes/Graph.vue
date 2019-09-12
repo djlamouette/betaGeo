@@ -1,13 +1,23 @@
 <template lang="html">
-  <div class="">
-    coucou ça marche
+  <div class="graph page">
+    <app-chart></app-chart>
   </div>
 </template>
 
 <script>
+import Chart from "../graph/Chart.vue"
 export default {
+  components: {
+    appChart: Chart
+  }
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss">
+
+  .page {
+    padding: 60px 20px 20px 20px;
+    height: 100%;
+  }
+
 </style>
