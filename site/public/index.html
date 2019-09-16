@@ -6,9 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
   <title>betaGeo</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
   <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
 </head>
 
 <body style="height: 100%">
@@ -17,6 +19,35 @@
   </noscript>
   <div id="app"></div>
   <!-- built files will be auto injected -->
+
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#config-web-app -->
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyB9U_pRxRCvv4rTRppAxnIncxe1vLYVGe0",
+      authDomain: "betageo-7336d.firebaseapp.com",
+      databaseURL: "https://betageo-7336d.firebaseio.com",
+      projectId: "betageo-7336d",
+      storageBucket: "betageo-7336d.appspot.com",
+      messagingSenderId: "703096973647",
+      appId: "1:703096973647:web:5ff2a7e8a5506f0f0cfd3a"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // firebase.firestore().settings({ timestampsInSnapshots: true });
+  </script>
 </body>
 
 </html>

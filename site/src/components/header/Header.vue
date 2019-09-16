@@ -12,7 +12,10 @@
           </li>
         </ul>
       </div>
-      <router-link to="/signin" class="btn btn-danger">Sign in</router-link>
+      <p class="name" v-if="logged">Bonjour : {{ userFirstName }} {{ userLastName }}</p>
+      <router-link to="/signin" class="signIn btn btn-success" v-if="!logged">Log In</router-link>
+      <button type="button" name="button" class="btn btn-danger" @click.prevent="logout" v-if="logged">Log Out</button>
+      <router-link to="/signup" class="singUp btn btn-outline-success" v-if="!logged">Sign up</router-link>
     </nav>
 
 
@@ -22,24 +25,63 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      log: null
+    }
+  },
+  methods: {
+    logout() {
+      firebase.auth().signOut().then(() => {
+        this.$store.state.loggedIn = false;
+      });
+
+
+      // var user = firebase.auth().currentUser;
+      // if (user) {
+      //   this.$store.state.loggedIn = true;
+      // } else {
+      //   this.$store.state.loggedIn = false;
+      // }
+    }
+  },
+  computed: {
+    logged() {
+      return this.$store.state.loggedIn;
+    },
+    userFirstName() {
+      return this.$store.state.userFirstName;
+    },
+    userLastName() {
+      return this.$store.state.userLastName;
+    }
+  },
+  created() {
+    // console.log(this.$store.state.loggedIn);
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
-  header {
+header {
     position: absolute;
     width: 100%;
-    top: 0px;
+    top: 0;
     nav.navbar {
-      background-color: #29749e !important;
+        background-color: #29749e !important;
 
-      a {
-        color: #fff !important;
-      }
+        a {
+            color: #fff !important;
+        }
     }
-  }
 
+    .btn {
+        margin-right: 10px;
+    }
+
+    .name {
+      color: #fff;
+      margin: 0;
+      margin-right: 15px;
+    }
+}
 </style>

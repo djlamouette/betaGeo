@@ -1,11 +1,48 @@
 <template lang="html">
   <div class="articles page">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <ul>
+      <li :for="article in articles">
+        <p>{{ article.title }}</p>
+
+
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      articles: [{
+        titre: "coucou",
+        data: "data"
+      }, {
+        titre: "hello",
+        data: "data"
+      }]
+    }
+  },
+
+  created() {
+    let that = this;
+    let articlesCollection = {};
+    db.collection('articles').get().then(function(querySnapshot) {
+
+      querySnapshot.forEach(function(doc) {
+        let id = doc.id;
+        let title = doc.data().titre;
+        let img = doc.data().image;
+        let content = doc.data().texte;
+
+        articlesCollection[id] = {};
+        articlesCollection[id]["title"] = title;
+        articlesCollection[id]["img"] = img;
+        articlesCollection[id]["content"] = content;
+      });
+    });
+    // this.articles = articlesCollection
+  }
 }
 </script>
 
