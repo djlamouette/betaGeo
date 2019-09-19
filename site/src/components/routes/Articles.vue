@@ -2,15 +2,14 @@
   <div class="articles page">
     <div class="articleContainer">
       <div class="arrow leftArrow" @click="prevArticle"></div>
-      <!-- <transition-group name="slide"> -->
+      <transition :name="directionAnimation" mode="out-in" tag="div">
         <app-article
           v-for="(article, key, index) in articles"
           :__article="article"
-          :data-index="index"
-          :v-show="indexArticle === index"
+          v-if="indexArticle === index"
           :key="index"
           ></app-article>
-      <!-- </transition-group> -->
+      </transition>
 
       <div class="arrow rightArrow" @click="nextArticle"></div>
     </div>
@@ -27,7 +26,13 @@ export default {
   data() {
     return {
       articles: null,
-      indexArticle: 0
+      indexArticle: 0,
+      directionAnimation: ""
+    }
+  },
+  computed: {
+    lengthArticles() {
+      return Object.keys(this.articles).length;
     }
   },
   methods: {
@@ -46,10 +51,16 @@ export default {
       });
     },
     nextArticle() {
-      this.indexArticle++;
+      this.directionAnimation = 'animationRight';
+      if (this.indexArticle < this.lengthArticles - 1) {
+        this.indexArticle++;
+      }
     },
     prevArticle() {
-      this.indexArticle--;
+      this.directionAnimation = 'animationLeft';
+      if (this.indexArticle > 0) {
+        this.indexArticle--;
+      }
     }
   },
   mounted() {
@@ -109,6 +120,59 @@ export default {
     &.rightArrow {
         right: 10px;
     }
+}
+
+//transition-group
+
+// .test-enter {
+//   transform: translateX(-30px);
+// }
+
+.animationRight-enter-active {
+  // transition: 0s;
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.animationRight-enter-to {
+  transition: 0.5s;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animationRight-leave {
+  transform: translateX(0);
+  opacity: 1
+}
+
+.animationRight-leave-active {
+  transition: 0.5s;
+  transform: translateX(-30px);
+  opacity: 0
+}
+
+
+.animationLeft-enter-active {
+  // transition: 0s;
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.animationLeft-enter-to {
+  transition: 0.5s;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animationLeft-leave {
+  transform: translateX(0);
+  opacity: 1
+}
+
+.animationLeft-leave-active {
+  transition: 0.5s;
+  transform: translateX(30px);
+  opacity: 0
 }
 
 

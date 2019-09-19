@@ -1,33 +1,37 @@
 <template lang="html">
   <div class="home page">
 
+    {{ info }}
     <!-- <h1>Bonjour {{ userName }} {{ userLastName }}</h1> -->
   </div>
 
 </template>
 
 <script>
+import axios from 'axios'
+// import { CURRENT_WEATHER } from '../constant.js'
+
 export default {
   data() {
     return {
       userName: null,
-      userLastName: null
+      userLastName: null,
+      info: null
     }
   },
   computed: {
     userID() {
       return this.$store.state.userID
     }
-  },
-  created() {
-    // if (this.$store.state.loggedIn) {
-    //   let userRef = db.collection('users').doc(this.$store.state.userID);
-    //   userRef.get().then(data => {
-    //     this.userName = data.data().prenom
-    //     this.userLastName = data.data().nom
-    //   })
-    // }
 
+  },
+  mounted() {
+    // this.info = this.$store.mutations.getWeather();
+    axios
+      .get("https://www.prevision-meteo.ch/services/json/paris")
+      .then(response => {
+        this.info = response
+      });
   }
 }
 </script>
