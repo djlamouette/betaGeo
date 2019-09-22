@@ -49,13 +49,13 @@ export default {
     login() {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(cred => {
 
-        this.$store.state.loggedIn = true;
-        this.$store.state.userID = cred.user.uid;
+        this.$store.state.users.loggedIn = true;
+        this.$store.state.users.userID = cred.user.uid;
 
         let userRef = db.collection('users').doc(cred.user.uid);
         userRef.get().then(data => {
-          this.$store.state.userFirstName = data.data().prenom
-          this.$store.state.userLastName = data.data().nom
+          this.$store.state.users.userFirstName = data.data().prenom
+          this.$store.state.users.userLastName = data.data().nom
         })
 
       }).catch(error => {

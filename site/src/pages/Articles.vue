@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Article from '../articles/Article.vue'
+import Article from '../components/articles/Article.vue'
 
 export default {
   components: {
@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     getArticles() {
-      let that = this;
       let articlesCollection = {};
       db.collection('articles').get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {

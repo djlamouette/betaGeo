@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SignUpContainer from "../signup/SignUpContainer.vue"
+import SignUpContainer from "../components/signup/SignUpContainer.vue"
 export default {
   components: {
     appSignUpContainer: SignUpContainer

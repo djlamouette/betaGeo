@@ -71,21 +71,29 @@ export default {
   },
   methods: {
     submit() {
-      firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred => {
-        this.$store.state.loggedIn = true;
-        this.$store.state.userID = cred.user.uid;
+      // firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(cred => {
+      //   this.$store.state.loggedIn = true;
+      //   this.$store.state.userID = cred.user.uid;
+      //
+      //   db.collection("users").doc(cred.user.uid).set({
+      //     prenom: this.firstName,
+      //     nom: this.lastName
+      //   }).then(() => {
+      //     let userRef = db.collection('users').doc(cred.user.uid);
+      //     userRef.get().then(data => {
+      //       this.$store.state.userFirstName = data.data().prenom
+      //       this.$store.state.userLastName = data.data().nom
+      //     });
+      //   })
+      // });
+      this.$store.dispatch('createAccount', {
+        email: this.email,
+        password: this.password,
+        firstName: this.firstName,
+        lastName: this.lastName
+       })
 
-        db.collection("users").doc(cred.user.uid).set({
-          prenom: this.firstName,
-          nom: this.lastName
-        }).then(() => {
-          let userRef = db.collection('users').doc(cred.user.uid);
-          userRef.get().then(data => {
-            this.$store.state.userFirstName = data.data().prenom
-            this.$store.state.userLastName = data.data().nom
-          });
-        })
-      });
+
       this.email = null;
       this.password = null;
       this.firstName = null;

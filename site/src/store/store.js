@@ -1,17 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios'
+import users from './modules/users.js'
+import weather from './modules/weather.js'
+
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-  state: {
-    loggedIn: false,
-    userID: null,
-    userFirstName: null,
-    userLastName: null,
-  },
-  mutations: {
 
-  },
+  modules: {
+    users,
+    weather
+  }
 })

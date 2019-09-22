@@ -1,8 +1,8 @@
-import home from './components/routes/Home.vue'
-import articles from './components/routes/Articles.vue'
-import graph from './components/routes/Graph.vue'
-import signin from './components/routes/Signin.vue'
-import signup from './components/routes/Signup.vue'
+import home from './pages/Home.vue'
+import articles from './pages/Articles.vue'
+import graph from './pages/Graph.vue'
+import signin from './pages/Signin.vue'
+import signup from './pages/Signup.vue'
 
 export const routes = [
   {path: '', component: home},

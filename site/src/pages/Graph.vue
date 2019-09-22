@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Chart from "../graph/Chart.vue"
+import Chart from "../components/graph/Chart.vue"
 export default {
   components: {
     appChart: Chart

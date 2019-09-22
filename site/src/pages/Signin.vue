@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SignInContainer from "../signin/SignInContainer.vue"
+import SignInContainer from "../components/signin/SignInContainer.vue"
 export default {
   components: {
     appSignInContainer: SignInContainer

@@ -12,10 +12,10 @@
           </li>
         </ul>
       </div>
-      <p class="name" v-if="logged">Bonjour : {{ userFirstName }} {{ userLastName }}</p>
-      <router-link to="/signin" class="signIn btn btn-success" v-if="!logged">Log In</router-link>
-      <button type="button" name="button" class="btn btn-danger" @click.prevent="logout" v-if="logged">Log Out</button>
-      <router-link to="/signup" class="singUp btn btn-outline-success" v-if="!logged">Sign up</router-link>
+      <p class="name" v-if="loggedIn">Bonjour : {{ userFirstName }} {{ userLastName }}</p>
+      <router-link to="/signin" class="signIn btn btn-success" v-if="!loggedIn">Log In</router-link>
+      <button type="button" name="button" class="btn btn-danger" @click.prevent="logout" v-if="loggedIn">Log Out</button>
+      <router-link to="/signup" class="singUp btn btn-outline-success" v-if="!loggedIn">Sign up</router-link>
     </nav>
 
 
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
@@ -31,33 +33,18 @@ export default {
   },
   methods: {
     logout() {
-      firebase.auth().signOut().then(() => {
-        this.$store.state.loggedIn = false;
-      });
-
-
-      // var user = firebase.auth().currentUser;
-      // if (user) {
-      //   this.$store.state.loggedIn = true;
-      // } else {
-      //   this.$store.state.loggedIn = false;
-      // }
+      this.$store.dispatch("logout");
     }
   },
   computed: {
-    logged() {
-      return this.$store.state.loggedIn;
-    },
-    userFirstName() {
-      return this.$store.state.userFirstName;
-    },
-    userLastName() {
-      return this.$store.state.userLastName;
-    }
+    ...mapGetters([
+      'userFirstName',
+      'userLastName',
+      "userID",
+      "loggedIn"
+    ])
   },
-  created() {
-    // console.log(this.$store.state.loggedIn);
-  }
+
 }
 </script>
 
