@@ -12,7 +12,7 @@
           </li>
         </ul>
       </div>
-      <p class="name" v-if="loggedIn">Bonjour : {{ userFirstName }} {{ userLastName }}</p>
+      <router-link to="/account" class="name" v-if="loggedIn">Bonjour : {{ userFirstName }} {{ userLastName }}</router-link>
       <router-link to="/signin" class="signIn btn btn-success" v-if="!loggedIn">Log In</router-link>
       <button type="button" name="button" class="btn btn-danger" @click.prevent="logout" v-if="loggedIn">Log Out</button>
       <router-link to="/signup" class="singUp btn btn-outline-success" v-if="!loggedIn">Sign up</router-link>
@@ -34,6 +34,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("logout");
+      this.$router.push("/").catch(err => {});
     }
   },
   computed: {

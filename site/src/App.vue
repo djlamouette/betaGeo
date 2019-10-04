@@ -14,30 +14,38 @@ export default {
   name: 'app',
   components: {
     appHeader: Header
+  },
+  mounted() {
+    let that = this;
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        that.$store.dispatch('initialAuth', user);
+      }
+    });
   }
 }
 </script>
 
 <style>
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    height: 100%;
-    padding-top: 56px;
-  }
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  height: 100%;
+  padding-top: 56px;
+}
 
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: 0.3s;
-  }
+.fade-enter-active,
+.fade-leave-active {
+  transition: 0.3s;
+}
 
-  .fade-enter,
-  .fade-leave-to {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: 0.3s
-  }
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 0.3s
+}
 </style>

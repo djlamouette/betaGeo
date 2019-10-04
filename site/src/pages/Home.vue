@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="home page">
 
-    <!-- <appWeather v-if="gotWeather"></appWeather> -->
+    <appWeather v-if="gotWeather"></appWeather>
     <!-- {{ info }} -->
     <!-- <p v-if="gotWeather"> -->
       <!-- {{ weather.data.city_info.name }}

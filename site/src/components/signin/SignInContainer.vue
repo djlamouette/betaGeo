@@ -33,8 +33,6 @@
 </template>
 
 <script>
-
-
 export default {
   components: {
 
@@ -47,26 +45,16 @@ export default {
   },
   methods: {
     login() {
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(cred => {
-
-        this.$store.state.users.loggedIn = true;
-        this.$store.state.users.userID = cred.user.uid;
-
-        let userRef = db.collection('users').doc(cred.user.uid);
-        userRef.get().then(data => {
-          this.$store.state.users.userFirstName = data.data().prenom
-          this.$store.state.users.userLastName = data.data().nom
-        })
-
-      }).catch(error => {
-        alert(error.message);
-      });
+      this.$store.dispatch('logIn', {
+        email: this.email,
+        password: this.password
+      })
 
       this.email = null;
       this.password = null;
+      this.$router.push('/');
     }
   }
-
 }
 </script>
 

@@ -2,7 +2,7 @@ const state = {
   loggedIn: false,
   userID: '',
   userFirstName: '',
-  userLastName: ''
+  userLastName: '',
 }
 
 const getters = {
@@ -21,11 +21,14 @@ const getters = {
 }
 
 const mutations = {
-  createAccount(state, {cred, payload}) {
+  setAccountState(state, user) {
     state.loggedIn = true;
-    state.userID = cred.user.uid;
-    state.userFirstName = payload.firstName;
-    state.userLastName = payload.lastName;
+    state.userID = user.uid;
+    let userRef = db.collection('users').doc(user.uid);
+    userRef.get().then(data => {
+      state.userFirstName = data.data().prenom
+      state.userLastName = data.data().nom
+    })
   },
   logout(state) {
     state.loggedIn = false;
@@ -41,14 +44,25 @@ const actions = {
       db.collection("users").doc(cred.user.uid).set({
         prenom: payload.firstName,
         nom: payload.lastName
-      });
-      context.commit('createAccount', {cred, payload});
+      }).then(() => {
+        context.commit('setAccountState', cred.user);
+      })
+    });
+  },
+  logIn(context, payload) {
+    firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).then(cred => {
+      context.commit('setAccountState', cred.user);
+    }).catch(error => {
+      alert(error.message);
     });
   },
   logout(context) {
     firebase.auth().signOut().then(() => {
       context.commit('logout');
     });
+  },
+  initialAuth(context, user) {
+    context.commit('setAccountState', user);
   }
 }
 
